@@ -1,3 +1,14 @@
+
+# Check if the script is running as Administrator
+$currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+$principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
+$isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if (-not $isAdmin) {
+    Write-Error "This script must be run as Administrator."
+    exit
+}
+
 # List of usernames to keep
 $keepUsers = @("Adam Michlin", "Administrator", "WDAGUtilityAccount", "Guest", "DefaultAccount")
 
