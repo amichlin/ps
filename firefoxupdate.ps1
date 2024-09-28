@@ -1,3 +1,5 @@
+#Not verfied as working
+
 # Define the URL for the latest Firefox installer
 $firefoxInstallerUrl = "https://download.mozilla.org/?product=firefox-latest&os=win&lang=en-US"
 
