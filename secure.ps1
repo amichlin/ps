@@ -38,10 +38,6 @@ Write-Host "Account lockout threshold and duration have been configured."
 Write-Host "Configuring Audit Credential Validation to log failure events..."
 auditpol /set /subcategory:"Credential Validation" /failure:enable
 
-Write-Host "Audit Credential Validation has been configured to log failure events."
-# Set the audit policy for credential validation to log failures
-auditpol /set /subcategory:"Credential Validation" /failure:enable
-
 Write-Host "Audit Credential Validation set to log failures."
 # Define the registry path and value
 $registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
