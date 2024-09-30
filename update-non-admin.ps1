@@ -26,3 +26,19 @@ foreach ($user in $localUsers) {
 }
 
 Write-Host "Password update complete for all regular (non-administrative) users."
+
+# Untested!
+
+# Get all users except administrators
+$NonAdminUsers = Get-WmiObject -Class Win32_UserAccount -Filter "LocalAccount=True AND Disabled=False AND SIDType=1" | Where-Object { 
+    $_.Name -notmatch "^(Administrator|Admin)" 
+}
+
+foreach ($User in $NonAdminUsers) {
+    # Set the user to reset the password on next login
+    Get-LocalUser -Name $User.Name | Set-LocalUser -PasswordExpires $true -PasswordNeverExpires $false
+
+    Write-Host "Set $($User.Name) to reset password on next login and disabled password never expires."
+}
+
+Write-Host "All non-admin users have been updated."
