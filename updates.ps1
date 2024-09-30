@@ -2,6 +2,18 @@
 $moduleName = "PSWindowsUpdate"
 $module = Get-Module -ListAvailable -Name $moduleName
 
+# Function to install NuGet provider if not available
+function Ensure-NuGetProvider {
+    if (-not (Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue)) {
+        Write-Host "NuGet provider is not installed. Installing now..."
+        Install-PackageProvider -Name NuGet -Force -Confirm:$false
+        Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+    }
+}
+
+# Check and install NuGet provider if necessary
+Ensure-NuGetProvider
+
 if ($module) {
     Write-Host "$moduleName module is already installed."
 } else {
@@ -33,5 +45,5 @@ if ($updates) {
 } else {
     Write-Host "No updates available or VMware updates ignored."
 }
-  Write-Host "No updates available."
-}
+
+Write-Host "Update process completed."
