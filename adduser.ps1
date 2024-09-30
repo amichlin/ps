@@ -4,6 +4,12 @@ param (
     [string]$Username
 )
 
+# Check if the Username parameter was provided
+if (-not $Username) {
+    Write-Host "Usage: .\scriptname.ps1 -Username <username>"
+    Exit
+}
+
 # Define the password
 $Password = ConvertTo-SecureString "ReallyStrongPassword!01" -AsPlainText -Force
 
